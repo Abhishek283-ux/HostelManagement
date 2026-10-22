@@ -1,0 +1,40 @@
+
+@{
+    ViewData["Title"] = "Hostel Fees";
+}
+
+<style>
+    body { background: #eaf5ee; color: #294b38; }
+    .page-header { background: #cde8d5; border-bottom: 4px solid #b9def0; padding: 28px 0; }
+    .page-header h1 { color: #315e46; font-weight: 700; }
+    .content { background: #dcefe3; border-left: 6px solid #b9def0; padding: 28px; margin-top: 30px; }
+    .fee-row { padding: 14px 0; border-bottom: 1px solid #c0ddca; }
+    .label { color: #527761; font-weight: 600; }
+    .back-link { display: inline-block; margin-top: 22px; color: #287ba4; font-weight: 600; text-decoration: none; }
+</style>
+
+<header class="page-header">
+    <div class="container">
+        <h1>Hostel Fees</h1>
+        <p class="mb-0">View your hostel fee information.</p>
+    </div>
+</header>
+
+<main class="container">
+    <section class="content">
+        <div class="fee-row">
+            <div class="label">Academic Year</div>
+            <div>2026–2027</div>
+        </div>
+        <div class="fee-row">
+            <div class="label">Total Hostel Fees</div>
+            <div>To be confirmed</div>
+        </div>
+        <div class="fee-row">
+            <div class="label">Payment Status</div>
+            <div>Contact the hostel office for confirmation.</div>
+        </div>
+    </section>
+
+    <a href="/Students/Dashboard" class="back-link">← Back to Dashboard</a>
+</main>

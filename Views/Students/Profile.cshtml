@@ -1,0 +1,111 @@
+
+@model HostelManagementSystem.Models.Student
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<style>
+    body {
+        background: #eaf5ee;
+        color: #294b38;
+    }
+
+    .profile-header {
+        background: #cde8d5;
+        border-bottom: 4px solid #b9def0;
+        padding: 28px 0;
+    }
+
+    .profile-header h1 {
+        color: #315e46;
+        font-weight: 700;
+    }
+
+    .profile-content {
+        background: #dcefe3;
+        border-left: 6px solid #b9def0;
+        padding: 28px;
+        margin-top: 30px;
+    }
+
+    .profile-row {
+        padding: 13px 0;
+        border-bottom: 1px solid #c0ddca;
+    }
+
+    .profile-label {
+        color: #527761;
+        font-weight: 600;
+    }
+
+    .profile-value {
+        color: #294b38;
+        overflow-wrap: anywhere;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 22px;
+        color: #287ba4;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .back-link:hover {
+        color: #315e46;
+        text-decoration: underline;
+    }
+</style>
+
+<header class="profile-header">
+    <div class="container">
+        <h1>My Profile</h1>
+        <p class="mb-0">View your registered student details.</p>
+    </div>
+</header>
+
+<main class="container">
+    <section class="profile-content">
+        @if (Model == null)
+        {
+            <p>No student profile found.</p>
+        }
+        else
+        {
+            <div class="profile-row">
+                <div class="profile-label">Full Name</div>
+                <div class="profile-value">@Model.Name</div>
+            </div>
+
+            <div class="profile-row">
+                <div class="profile-label">Email</div>
+                <div class="profile-value">@Model.Email</div>
+            </div>
+
+            <div class="profile-row">
+                <div class="profile-label">Phone</div>
+                <div class="profile-value">@Model.Phone</div>
+            </div>
+
+            <div class="profile-row">
+                <div class="profile-label">Enrollment Number</div>
+                <div class="profile-value">@Model.EnrollmentNumber</div>
+            </div>
+
+            <div class="profile-row">
+                <div class="profile-label">Department</div>
+                <div class="profile-value">@Model.Department</div>
+            </div>
+
+            <div class="profile-row">
+                <div class="profile-label">Course</div>
+                <div class="profile-value">@Model.Course</div>
+            </div>
+        }
+    </section>
+
+    <a href="/Students/Dashboard" class="back-link">
+        ← Back to Dashboard
+    </a>
+</main>

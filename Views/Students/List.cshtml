@@ -1,0 +1,38 @@
+
+@model List<HostelManagementSystem.Models.Student>
+
+@{
+    ViewData["Title"] = "Student List";
+}
+
+<div class="container mt-5">
+    <h2>Registered Students</h2>
+
+    <a href="/Students" class="btn btn-success mb-3">Add Student</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-success">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Enrollment</th>
+                <th>Department</th>
+                <th>Course</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td>@student.Name</td>
+                    <td>@student.Email</td>
+                    <td>@student.Phone</td>
+                    <td>@student.EnrollmentNumber</td>
+                    <td>@student.Department</td>
+                    <td>@student.Course</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

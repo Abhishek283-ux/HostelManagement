@@ -1,0 +1,1363 @@
+
+
+@{
+
+    ViewData["Title"] = "Student Dashboard";
+
+    var studentName = User.Identity?.Name ?? "Student";
+
+}
+
+
+
+<style>
+
+    body {
+
+        margin: 0;
+
+        background: #f2f9f6;
+
+        color: #254b37;
+
+        font-family: "Segoe UI", Arial, sans-serif;
+
+    }
+
+
+
+    .dashboard {
+
+        max-width: 1450px;
+
+        margin: auto;
+
+        padding: 24px 34px;
+
+    }
+
+
+
+    /* Top navigation */
+
+    .topbar {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        gap: 20px;
+
+        flex-wrap: wrap;
+
+        padding-bottom: 20px;
+
+        border-bottom: 1px solid #d8e8df;
+
+    }
+
+
+
+    .brand {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        font-size: 21px;
+
+        font-weight: 800;
+
+        color: #28623f;
+
+        letter-spacing: -0.5px;
+
+    }
+
+
+
+    .brand-icon {
+
+        width: 46px;
+
+        height: 46px;
+
+        display: grid;
+
+        place-items: center;
+
+        border-radius: 15px;
+
+        background: #cde8ce;
+
+    }
+
+
+
+    .brand-icon svg {
+
+        width: 29px;
+
+        height: 29px;
+
+    }
+
+
+
+    .nav-links {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 7px;
+
+        flex-wrap: wrap;
+
+    }
+
+
+
+    .nav-links a {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 7px;
+
+        padding: 11px 13px;
+
+        border-radius: 10px;
+
+        text-decoration: none;
+
+        color: #466451;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        transition: 0.2s ease;
+
+    }
+
+
+
+    .nav-links a:hover {
+
+        background: #dff0e3;
+
+        color: #225a38;
+
+    }
+
+
+
+    .nav-links a.active {
+
+        background: #34764c;
+
+        color: white;
+
+    }
+
+
+
+    .nav-links svg {
+
+        width: 18px;
+
+        height: 18px;
+
+        flex-shrink: 0;
+
+    }
+
+
+
+    /* Welcome section */
+
+    .welcome {
+
+        margin-top: 30px;
+
+        min-height: 340px;
+
+        display: grid;
+
+        grid-template-columns: 1.1fr 0.9fr;
+
+        align-items: center;
+
+        overflow: hidden;
+
+        border-radius: 25px;
+
+        background: linear-gradient(115deg, #d7edda 0%, #d7effb 100%);
+
+        position: relative;
+
+    }
+
+
+
+    .welcome-copy {
+
+        padding: 42px 20px 42px 45px;
+
+        position: relative;
+
+        z-index: 1;
+
+    }
+
+
+
+    .eyebrow {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        background: rgba(255,255,255,0.72);
+
+        color: #34764c;
+
+        padding: 8px 13px;
+
+        border-radius: 30px;
+
+        font-size: 12px;
+
+        font-weight: 800;
+
+        text-transform: uppercase;
+
+        letter-spacing: 1px;
+
+    }
+
+
+
+    .eyebrow span {
+
+        width: 8px;
+
+        height: 8px;
+
+        background: #5d9e68;
+
+        border-radius: 50%;
+
+    }
+
+
+
+    .welcome h1 {
+
+        font-size: clamp(30px, 4vw, 48px);
+
+        line-height: 1.12;
+
+        letter-spacing: -1.5px;
+
+        margin: 23px 0 15px;
+
+        color: #234d34;
+
+        font-weight: 800;
+
+    }
+
+
+
+    .welcome h1 em {
+
+        color: #43835a;
+
+        font-style: normal;
+
+    }
+
+
+
+    .welcome-copy > p {
+
+        max-width: 470px;
+
+        color: #55715f;
+
+        font-size: 16px;
+
+        line-height: 1.8;
+
+        margin-bottom: 25px;
+
+    }
+
+
+
+    .primary-link {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        background: #34764c;
+
+        color: white;
+
+        padding: 13px 19px;
+
+        border-radius: 11px;
+
+        text-decoration: none;
+
+        font-weight: 700;
+
+        box-shadow: 0 6px 14px rgba(52, 118, 76, 0.15);
+
+        transition: 0.2s ease;
+
+    }
+
+
+
+    .primary-link:hover {
+
+        background: #285e3c;
+
+        color: white;
+
+        transform: translateY(-2px);
+
+    }
+
+
+
+    .primary-link svg {
+
+        width: 19px;
+
+        height: 19px;
+
+    }
+
+
+
+    .hero-art {
+
+        align-self: stretch;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        padding: 10px 20px 10px 0;
+
+        min-width: 0;
+
+    }
+
+
+
+    .hero-art svg {
+
+        display: block;
+
+        width: 100%;
+
+        max-width: 440px;
+
+        height: auto;
+
+    }
+
+
+
+    /* Section heading */
+
+    .section-heading {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: end;
+
+        gap: 15px;
+
+        flex-wrap: wrap;
+
+        margin: 35px 0 20px;
+
+    }
+
+
+
+    .section-heading h2 {
+
+        font-size: 24px;
+
+        font-weight: 800;
+
+        margin: 0 0 6px;
+
+        color: #284d37;
+
+    }
+
+
+
+    .section-heading p {
+
+        margin: 0;
+
+        color: #74887a;
+
+        font-size: 14px;
+
+    }
+
+
+
+    .section-heading .small-label {
+
+        color: #47825b;
+
+        font-size: 13px;
+
+        font-weight: 700;
+
+    }
+
+
+
+    /* Wide, illustrated navigation rows — no feature cards */
+
+    .portal-links {
+
+        border-top: 1px solid #d8e7de;
+
+    }
+
+
+
+    .portal-link {
+
+        display: grid;
+
+        grid-template-columns: 62px 1fr auto;
+
+        align-items: center;
+
+        gap: 18px;
+
+        padding: 21px 13px;
+
+        border-bottom: 1px solid #d8e7de;
+
+        text-decoration: none;
+
+        color: inherit;
+
+        transition: background 0.2s ease, padding 0.2s ease;
+
+    }
+
+
+
+    .portal-link:hover {
+
+        background: #e8f5ed;
+
+        padding-left: 20px;
+
+        padding-right: 20px;
+
+        color: #254b37;
+
+    }
+
+
+
+    .portal-icon {
+
+        width: 58px;
+
+        height: 58px;
+
+        display: grid;
+
+        place-items: center;
+
+        border-radius: 17px;
+
+        background: #d7edda;
+
+        color: #34764c;
+
+    }
+
+
+
+    .portal-link:nth-child(even) .portal-icon {
+
+        background: #d8edfb;
+
+        color: #347d9b;
+
+    }
+
+
+
+    .portal-icon svg {
+
+        width: 29px;
+
+        height: 29px;
+
+    }
+
+
+
+    .portal-text h3 {
+
+        font-size: 17px;
+
+        margin: 0 0 5px;
+
+        font-weight: 750;
+
+        color: #2c523a;
+
+    }
+
+
+
+    .portal-text p {
+
+        font-size: 14px;
+
+        color: #718578;
+
+        margin: 0;
+
+        line-height: 1.5;
+
+    }
+
+
+
+    .portal-arrow {
+
+        width: 38px;
+
+        height: 38px;
+
+        display: grid;
+
+        place-items: center;
+
+        border-radius: 50%;
+
+        background: #e1f0e5;
+
+        color: #34764c;
+
+        font-size: 23px;
+
+        transition: 0.2s ease;
+
+    }
+
+
+
+    .portal-link:hover .portal-arrow {
+
+        background: #34764c;
+
+        color: white;
+
+        transform: translateX(3px);
+
+    }
+
+
+
+    /* Bottom welcome strip */
+
+    .bottom-strip {
+
+        margin-top: 30px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 20px;
+
+        flex-wrap: wrap;
+
+        padding: 23px 26px;
+
+        border-radius: 17px;
+
+        background: #d9edfb;
+
+    }
+
+
+
+    .bottom-strip h3 {
+
+        margin: 0 0 6px;
+
+        font-size: 17px;
+
+        font-weight: 800;
+
+        color: #28566c;
+
+    }
+
+
+
+    .bottom-strip p {
+
+        margin: 0;
+
+        color: #55788a;
+
+        font-size: 14px;
+
+    }
+
+
+
+    .bottom-strip a {
+
+        color: #28566c;
+
+        font-weight: 750;
+
+        text-decoration: none;
+
+        white-space: nowrap;
+
+    }
+
+
+
+    .bottom-strip a:hover {
+
+        text-decoration: underline;
+
+    }
+
+
+
+    .dashboard-footer {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        gap: 12px;
+
+        flex-wrap: wrap;
+
+        margin-top: 25px;
+
+        padding: 18px 0 8px;
+
+        border-top: 1px solid #d8e7de;
+
+        color: #829387;
+
+        font-size: 12px;
+
+    }
+
+
+
+    @@media (max-width: 850px) {
+
+        .dashboard {
+
+            padding: 18px;
+
+        }
+
+
+
+        .welcome {
+
+            grid-template-columns: 1fr;
+
+        }
+
+
+
+        .welcome-copy {
+
+            padding: 32px 28px 10px;
+
+        }
+
+
+
+        .hero-art {
+
+            padding: 0 15px 10px;
+
+        }
+
+
+
+        .hero-art svg {
+
+            max-width: 340px;
+
+        }
+
+
+
+        .topbar {
+
+            align-items: flex-start;
+
+        }
+
+    }
+
+
+
+    @@media (max-width: 480px) {
+
+        .dashboard {
+
+            padding: 12px;
+
+        }
+
+
+
+        .brand {
+
+            font-size: 18px;
+
+        }
+
+
+
+        .nav-links a {
+
+            padding: 9px 10px;
+
+            font-size: 13px;
+
+        }
+
+
+
+        .welcome h1 {
+
+            font-size: 32px;
+
+        }
+
+
+
+        .portal-link {
+
+            grid-template-columns: 48px 1fr auto;
+
+            gap: 12px;
+
+            padding: 17px 5px;
+
+        }
+
+
+
+        .portal-icon {
+
+            width: 46px;
+
+            height: 46px;
+
+            border-radius: 13px;
+
+        }
+
+
+
+        .portal-icon svg {
+
+            width: 24px;
+
+            height: 24px;
+
+        }
+
+
+
+        .portal-text h3 {
+
+            font-size: 15px;
+
+        }
+
+
+
+        .portal-text p {
+
+            font-size: 12px;
+
+        }
+
+
+
+        .portal-arrow {
+
+            width: 30px;
+
+            height: 30px;
+
+        }
+
+    }
+
+</style>
+
+
+
+<div class="dashboard">
+
+
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <span class="brand-icon">
+
+                <svg viewBox="0 0 40 40" fill="none"
+
+                     xmlns="http://www.w3.org/2000/svg">
+
+                    <path d="M5 18L20 6L35 18V34H5V18Z"
+
+                          fill="#34764C" />
+
+                    <path d="M15 34V23H25V34"
+
+                          fill="#D8EDDA" />
+
+                    <path d="M11 19H16V24H11V19Z"
+
+                          fill="#D8EDDA" />
+
+                    <path d="M24 19H29V24H24V19Z"
+
+                          fill="#D8EDDA" />
+
+                </svg>
+
+            </span>
+
+            <span>Hostel<span style="color:#6d9c78">Space</span></span>
+
+        </div>
+
+
+
+        <nav class="nav-links" aria-label="Main navigation">
+
+            <a asp-controller="Students" asp-action="Dashboard" class="active">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+                    <path d="m3 10 9-7 9 7" />
+
+                    <path d="M5 9v12h14V9" />
+
+                    <path d="M9 21v-7h6v7" />
+
+                </svg>
+
+                Home
+
+            </a>
+
+
+
+            <a asp-controller="Students" asp-action="Profile">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+                    <circle cx="12" cy="8" r="4" />
+
+                    <path d="M4 21a8 8 0 0 1 16 0" />
+
+                </svg>
+
+                Profile
+
+            </a>
+
+
+
+            <a asp-controller="Students" asp-action="RoomDetails">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+                    <path d="M3 21V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v16" />
+
+                    <path d="M3 12h18M8 7h2m4 0h2M8 16h2m4 0h2" />
+
+                </svg>
+
+                Rooms
+
+            </a>
+
+
+
+            <a asp-controller="Students" asp-action="LeaveRequests">
+
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+                    <rect x="3" y="4" width="18" height="17" rx="2" />
+
+                    <path d="M16 2v4M8 2v4M3 10h18M8 15l2 2 5-5" />
+
+                </svg>
+
+                Leave
+
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <main>
+
+        <section class="welcome">
+
+            <div class="welcome-copy">
+
+                <div class="eyebrow">
+
+                    <span></span>
+
+                    YOUR STUDENT SPACE
+
+                </div>
+
+
+
+                <h1>Welcome back,<br /><em>@studentName!</em></h1>
+
+
+
+                <p>
+
+                    Your hostel life, organized in one place.
+
+                    Manage your profile, explore room options,
+
+                    and keep track of your leave applications.
+
+                </p>
+
+
+
+                <a asp-controller="Students"
+
+                   asp-action="Profile"
+
+                   class="primary-link">
+
+                    View My Profile
+
+                    <svg viewBox="0 0 24 24" fill="none"
+
+                         stroke="currentColor" stroke-width="2"
+
+                         stroke-linecap="round" stroke-linejoin="round">
+
+                        <path d="M5 12h14M13 6l6 6-6 6" />
+
+                    </svg>
+
+                </a>
+
+            </div>
+
+
+
+            <div class="hero-art">
+
+                <svg viewBox="0 0 460 330" role="img"
+
+                     aria-label="Illustration of a welcoming student hostel">
+
+                    <circle cx="330" cy="88" r="43" fill="#F9D979" />
+
+                    <circle cx="330" cy="88" r="31" fill="#FFE9A8" />
+
+
+
+                    <path d="M20 266C76 223 120 249 163 260C214 273 282 236 335 247C383 258 417 251 450 235V330H20V266Z"
+
+                          fill="#A9D6AD" />
+
+
+
+                    <path d="M48 275C95 242 133 258 173 276C214 294 276 267 316 272C367 278 408 266 450 253V330H48V275Z"
+
+                          fill="#82BE91" />
+
+
+
+                    <rect x="104" y="123" width="233" height="151" rx="5"
+
+                          fill="#F9FCF5" stroke="#8CB99A" stroke-width="3" />
+
+
+
+                    <path d="M84 131L220 48L357 131H84Z"
+
+                          fill="#43825A" />
+
+                    <path d="M105 130L220 61L337 130"
+
+                          fill="#5D9B6B" />
+
+
+
+                    <rect x="126" y="144" width="54" height="51" rx="3"
+
+                          fill="#C6E7F5" />
+
+                    <rect x="191" y="144" width="58" height="51" rx="3"
+
+                          fill="#C6E7F5" />
+
+                    <rect x="260" y="144" width="54" height="51" rx="3"
+
+                          fill="#C6E7F5" />
+
+
+
+                    <path d="M153 144V195M126 170H180M220 144V195M191 170H249M287 144V195M260 170H314"
+
+                          stroke="#7CAFC3" stroke-width="3" />
+
+
+
+                    <rect x="193" y="212" width="54" height="62" rx="3"
+
+                          fill="#9CC9A5" />
+
+                    <circle cx="235" cy="243" r="3" fill="#34764C" />
+
+
+
+                    <rect x="96" y="122" width="247" height="8" rx="2"
+
+                          fill="#D6E9D6" />
+
+
+
+                    <path d="M50 274V222M36 239L50 223L65 239M38 253L50 238L63 253"
+
+                          stroke="#43825A" stroke-width="5"
+
+                          stroke-linecap="round" stroke-linejoin="round" />
+
+
+
+                    <circle cx="50" cy="210" r="20" fill="#78B787" />
+
+                    <circle cx="35" cy="218" r="14" fill="#95C99D" />
+
+                    <circle cx="64" cy="220" r="14" fill="#5E9D6D" />
+
+
+
+                    <path d="M389 276V233M374 247L389 232L404 247"
+
+                          stroke="#43825A" stroke-width="5"
+
+                          stroke-linecap="round" stroke-linejoin="round" />
+
+
+
+                    <circle cx="389" cy="220" r="20" fill="#78B787" />
+
+                    <circle cx="375" cy="227" r="14" fill="#95C99D" />
+
+                    <circle cx="403" cy="229" r="14" fill="#5E9D6D" />
+
+
+
+                    <path d="M195 287C207 275 233 275 245 287"
+
+                          stroke="#F5F9E9" stroke-width="5"
+
+                          stroke-linecap="round" />
+
+
+
+                    <path d="M75 88L81 99L93 101L84 110L86 122L75 116L64 122L66 110L57 101L69 99L75 88Z"
+
+                          fill="#F5D77B" />
+
+
+
+                    <circle cx="370" cy="150" r="4" fill="#43825A" />
+
+                    <circle cx="385" cy="166" r="3" fill="#43825A" />
+
+                    <circle cx="64" cy="156" r="4" fill="#43825A" />
+
+                </svg>
+
+            </div>
+
+        </section>
+
+
+
+        <section>
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Your Student Services</h2>
+
+                    <p>Everything you need for a smoother hostel experience.</p>
+
+                </div>
+
+                <span class="small-label">QUICK NAVIGATION ↗</span>
+
+            </div>
+
+
+
+            <div class="portal-links">
+
+
+
+                <a asp-controller="Students"
+
+                   asp-action="Profile"
+
+                   class="portal-link">
+
+                    <span class="portal-icon">
+
+                        <svg viewBox="0 0 24 24" fill="none"
+
+                             stroke="currentColor" stroke-width="1.8"
+
+                             stroke-linecap="round" stroke-linejoin="round">
+
+                            <circle cx="12" cy="8" r="4" />
+
+                            <path d="M4 21a8 8 0 0 1 16 0" />
+
+                        </svg>
+
+                    </span>
+
+                    <span class="portal-text">
+
+                        <h3>My Profile</h3>
+
+                        <p>View your personal details and student information.</p>
+
+                    </span>
+
+                    <span class="portal-arrow">→</span>
+
+                </a>
+
+
+
+                <a asp-controller="Students"
+
+                   asp-action="RoomDetails"
+
+                   class="portal-link">
+
+                    <span class="portal-icon">
+
+                        <svg viewBox="0 0 24 24" fill="none"
+
+                             stroke="currentColor" stroke-width="1.8"
+
+                             stroke-linecap="round" stroke-linejoin="round">
+
+                            <path d="M3 21V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v16" />
+
+                            <path d="M3 12h18M8 7h2m4 0h2M8 16h2m4 0h2" />
+
+                        </svg>
+
+                    </span>
+
+                    <span class="portal-text">
+
+                        <h3>Room Options</h3>
+
+                        <p>Explore single, two-sharing, and four-sharing rooms.</p>
+
+                    </span>
+
+                    <span class="portal-arrow">→</span>
+
+                </a>
+
+
+
+                <a asp-controller="Students"
+
+                   asp-action="LeaveRequests"
+
+                   class="portal-link">
+
+                    <span class="portal-icon">
+
+                        <svg viewBox="0 0 24 24" fill="none"
+
+                             stroke="currentColor" stroke-width="1.8"
+
+                             stroke-linecap="round" stroke-linejoin="round">
+
+                            <rect x="3" y="4" width="18" height="17" rx="2" />
+
+                            <path d="M16 2v4M8 2v4M3 10h18M8 15l2 2 5-5" />
+
+                        </svg>
+
+                    </span>
+
+                    <span class="portal-text">
+
+                        <h3>Leave Applications</h3>
+
+                        <p>Submit leave requests and check their current status.</p>
+
+                    </span>
+
+                    <span class="portal-arrow">→</span>
+
+                </a>
+
+
+
+                <a asp-controller="Students"
+
+                   asp-action="Fees"
+
+                   class="portal-link">
+
+                    <span class="portal-icon">
+
+                        <svg viewBox="0 0 24 24" fill="none"
+
+                             stroke="currentColor" stroke-width="1.8"
+
+                             stroke-linecap="round" stroke-linejoin="round">
+
+                            <rect x="3" y="5" width="18" height="15" rx="2" />
+
+                            <path d="M3 10h18M7 15h4" />
+
+                        </svg>
+
+                    </span>
+
+                    <span class="portal-text">
+
+                        <h3>Hostel Fees</h3>
+
+                        <p>View hostel fee information and payment guidance.</p>
+
+                    </span>
+
+                    <span class="portal-arrow">→</span>
+
+                </a>
+
+
+
+            </div>
+
+        </section>
+
+
+
+        <section class="bottom-strip">
+
+            <div>
+
+                <h3>A comfortable stay starts with good organization.</h3>
+
+                <p>Keep your student information and hostel requests up to date.</p>
+
+            </div>
+
+
+
+            <a asp-controller="Students" asp-action="LeaveRequests">
+
+                Manage Leave Requests →
+
+            </a>
+
+        </section>
+
+    </main>
+
+
+
+    <footer class="dashboard-footer">
+
+        <span>© @DateTime.Now.Year HostelSpace · Student Portal</span>
+
+        <span>Designed for a better hostel experience</span>
+
+    </footer>
+
+</div>

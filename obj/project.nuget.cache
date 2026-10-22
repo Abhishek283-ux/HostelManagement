@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "YqwJjW6GGYg=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ABHISHEK SINGH\\HostelManagementSystem\\HostelManagementSystem.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ABHISHEK SINGH\\.nuget\\packages\\npgsql\\10.0.3\\npgsql.10.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

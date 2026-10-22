@@ -1,0 +1,273 @@
+
+@model List<Dictionary<string, object>>
+
+@{
+    ViewData["Title"] = "Leave Requests";
+}
+
+<style>
+    body {
+        background: #eaf6ff;
+        color: #234b35;
+    }
+
+    .leave-container {
+        max-width: 1000px;
+        margin: 30px auto;
+        padding: 25px;
+    }
+
+    .leave-header {
+        background: #c8e6c9;
+        padding: 22px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+    }
+
+    .leave-form {
+        background: #dff1ff;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+    }
+
+    .form-control {
+        border: 1px solid #a5c9b0;
+        border-radius: 7px;
+        padding: 10px;
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .submit-btn {
+        background: #39764d;
+        color: white;
+        border: none;
+        padding: 11px 22px;
+        border-radius: 7px;
+        font-weight: 600;
+    }
+
+    .submit-btn:hover {
+        background: #285b39;
+        color: white;
+    }
+
+    .leave-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+    }
+
+    .leave-table th {
+        background: #c8e6c9;
+        color: #234b35;
+    }
+
+    .leave-table th,
+    .leave-table td {
+        padding: 12px;
+        border: 1px solid #d5e7dc;
+        text-align: left;
+    }
+
+    .status {
+        font-weight: 700;
+    }
+
+    .status-pending {
+        color: #986600;
+    }
+
+    .status-approved {
+        color: #23753b;
+    }
+
+    .status-rejected {
+        color: #b42318;
+    }
+
+    .message {
+        padding: 12px;
+        border-radius: 7px;
+        margin-bottom: 18px;
+    }
+
+    .success {
+        background: #d8f3dc;
+        color: #205b31;
+    }
+
+    .error {
+        background: #ffe0e0;
+        color: #922020;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+</style>
+
+<div class="leave-container">
+    <div class="leave-header">
+        <h2>Leave Requests</h2>
+        <p class="mb-0">
+            Apply for hostel leave and track the status of your requests.
+        </p>
+    </div>
+
+    @if (TempData["LeaveSuccess"] != null)
+    {
+        <div class="message success">
+            @TempData["LeaveSuccess"]
+        </div>
+    }
+
+    @if (TempData["LeaveError"] != null)
+    {
+        <div class="message error">
+            @TempData["LeaveError"]
+        </div>
+    }
+
+    <div class="leave-form">
+        <h4>Apply for Leave</h4>
+
+        <form asp-controller="Students"
+              asp-action="SubmitLeaveRequest"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div class="row g-3 mt-1">
+                <div class="col-md-6">
+                    <label for="startDate" class="form-label">
+                        Start Date
+                    </label>
+                    <input type="date"
+                           id="startDate"
+                           name="startDate"
+                           class="form-control"
+                           required />
+                </div>
+
+                <div class="col-md-6">
+                    <label for="endDate" class="form-label">
+                        End Date
+                    </label>
+                    <input type="date"
+                           id="endDate"
+                           name="endDate"
+                           class="form-control"
+                           required />
+                </div>
+
+                <div class="col-12">
+                    <label for="reason" class="form-label">
+                        Reason for Leave
+                    </label>
+                    <textarea id="reason"
+                              name="reason"
+                              class="form-control"
+                              rows="4"
+                              maxlength="2000"
+                              placeholder="Explain why you need leave..."
+                              required></textarea>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="submit-btn">
+                        Submit Leave Request
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <h4>My Submitted Requests</h4>
+
+    @if (Model == null || Model.Count == 0)
+    {
+        <p>You have not submitted any leave requests yet.</p>
+    }
+    else
+    {
+        <div class="table-wrapper">
+            <table class="leave-table">
+                <thead>
+                    <tr>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Submitted On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var request in Model)
+                    {
+                        var status = request["Status"].ToString() ?? "Pending";
+
+                        var statusClass = status.ToLowerInvariant() switch
+                        {
+                            "approved" => "status-approved",
+                            "rejected" => "status-rejected",
+                            _ => "status-pending"
+                        };
+
+                        <tr>
+                            <td>
+                                @(((DateTime)request["StartDate"]).ToString("dd MMM yyyy"))
+                            </td>
+                            <td>
+                                @(((DateTime)request["EndDate"]).ToString("dd MMM yyyy"))
+                            </td>
+                            <td>@request["Reason"]</td>
+                            <td>
+                                <span class="status @statusClass">
+                                    @status
+                                </span>
+                            </td>
+                            <td>
+                                @(((DateTime)request["SubmittedAt"]).ToString("dd MMM yyyy, hh:mm tt"))
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <div class="mt-4">
+        <a asp-controller="Students"
+           asp-action="Dashboard"
+           class="text-success">
+            ← Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<script>
+    const startInput = document.getElementById("startDate");
+    const endInput = document.getElementById("endDate");
+
+    startInput.addEventListener("change", function () {
+        endInput.min = startInput.value;
+
+        if (endInput.value && endInput.value < startInput.value) {
+            endInput.value = startInput.value;
+        }
+    });
+
+    endInput.addEventListener("change", function () {
+        if (startInput.value && endInput.value < startInput.value) {
+            endInput.setCustomValidity(
+                "End date cannot be earlier than start date."
+            );
+        } else {
+            endInput.setCustomValidity("");
+        }
+    });
+</script>

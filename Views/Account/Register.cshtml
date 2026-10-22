@@ -1,0 +1,77 @@
+
+@{
+    ViewData["Title"] = "Student Registration";
+}
+
+<div style="background:#dff3e4; min-height:100vh; padding:35px 15px;">
+    <div style="max-width:650px; margin:auto; background:#e1f2ff;
+                padding:30px; border:2px solid #9acda9; border-radius:12px;">
+
+        <h2 style="text-align:center; color:#245c3b;">
+            Boys' Hostel Management
+        </h2>
+        <h4 style="text-align:center; color:#245c3b; margin:20px 0;">
+            Student Registration
+        </h4>
+
+        @if (ViewBag.Error != null)
+        {
+            <p style="color:#b42318; text-align:center;">
+                @ViewBag.Error
+            </p>
+        }
+
+        <form method="post" action="/Account/Register">
+            @Html.AntiForgeryToken()
+
+            <label for="name">Full Name *</label>
+            <input id="name" name="name" class="form-control"
+                   maxlength="100" required />
+
+            <label for="email" style="margin-top:12px;">Email *</label>
+            <input id="email" name="email" type="email"
+                   maxlength="150" class="form-control" required />
+
+            <label for="phone" style="margin-top:12px;">Phone</label>
+            <input id="phone" name="phone" type="tel"
+                   maxlength="20" class="form-control" />
+
+            <label for="enrollmentNumber" style="margin-top:12px;">
+                Enrollment Number *
+            </label>
+            <input id="enrollmentNumber" name="enrollmentNumber"
+                   maxlength="50" class="form-control" required />
+
+            <label for="department" style="margin-top:12px;">Department</label>
+            <input id="department" name="department"
+                   maxlength="100" class="form-control" />
+
+            <label for="course" style="margin-top:12px;">Course</label>
+            <input id="course" name="course"
+                   maxlength="100" class="form-control" />
+
+            <label for="password" style="margin-top:12px;">Password *</label>
+            <input id="password" name="password" type="password"
+                   minlength="8" class="form-control" required />
+
+            <label for="confirmPassword" style="margin-top:12px;">
+                Confirm Password *
+            </label>
+            <input id="confirmPassword" name="confirmPassword"
+                   type="password" minlength="8"
+                   class="form-control" required />
+
+            <button type="submit"
+                    style="width:100%; margin-top:25px; padding:11px;
+                           background:#397c52; color:white;
+                           border:0; border-radius:6px;">
+                Create Account
+            </button>
+        </form>
+
+        <p style="text-align:center; margin-top:20px;">
+            Already registered?
+            <a href="/Account/Login" style="color:#245c3b;">Login here</a>
+        </p>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+
+@{
+    ViewData["Title"] = "Student Login";
+}
+
+<div style="background:#dff3e4; min-height:80vh; padding:50px 15px;">
+    <div style="max-width:450px; margin:auto; background:#e1f2ff;
+                padding:35px; border-radius:12px;
+                border:2px solid #9acda9;">
+
+        <h2 style="text-align:center; color:#245c3b;">
+            Boys' Hostel Management
+        </h2>
+
+        <h4 style="text-align:center; color:#245c3b; margin-top:25px;">
+            Student Login
+        </h4>
+
+        @if (TempData["Message"] != null)
+        {
+            <p style="color:#245c3b; text-align:center;">
+                @TempData["Message"]
+            </p>
+        }
+
+        @if (ViewBag.Error != null)
+        {
+            <p style="color:#b42318; text-align:center;">
+                @ViewBag.Error
+            </p>
+        }
+
+        <form method="post" action="/Account/Login">
+            @Html.AntiForgeryToken()
+
+            <div style="margin-top:20px;">
+                <label for="email">Email or Enrollment Number</label>
+                <input id="email" name="email" type="text"
+                       class="form-control" required />
+            </div>
+
+            <div style="margin-top:15px;">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password"
+                       class="form-control" required />
+            </div>
+
+            <button type="submit"
+                    style="width:100%; margin-top:25px; padding:10px;
+                           background:#397c52; color:white;
+                           border:0; border-radius:6px;">
+                Login
+            </button>
+        </form>
+
+        <p style="text-align:center; margin-top:20px;">
+            New student?
+            <a href="/Account/Register" style="color:#245c3b;">
+                Create an account
+            </a>
+        </p>
+    </div>
+</div>

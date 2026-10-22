@@ -1,0 +1,151 @@
+@{
+    ViewData["Title"] = "Room Options";
+}
+
+<style>
+    .rooms-page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 30px 20px 50px;
+        color: #254b37;
+        font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .rooms-hero {
+        padding: 32px;
+        border-radius: 24px;
+        background: linear-gradient(115deg, #d7edda, #d7effb);
+        margin-bottom: 28px;
+    }
+
+    .rooms-hero h1 {
+        margin: 0 0 10px;
+        font-size: clamp(28px, 4vw, 40px);
+        font-weight: 800;
+        color: #234d34;
+    }
+
+    .rooms-hero p {
+        max-width: 650px;
+        margin: 0;
+        color: #55715f;
+        line-height: 1.7;
+    }
+
+    .rooms-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+    .room-option {
+        overflow: hidden;
+        border: 1px solid #d9e9df;
+        border-radius: 20px;
+        background: #fff;
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .room-option:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 14px 30px rgba(39, 91, 57, .11);
+    }
+
+    .room-art {
+        height: 145px;
+        display: grid;
+        place-items: center;
+        background: #e1f1e4;
+        color: #34764c;
+    }
+
+    .room-option:nth-child(2) .room-art { background: #dff0fb; color: #347d9b; }
+    .room-option:nth-child(3) .room-art { background: #e9f0d9; color: #5a8145; }
+
+    .room-art svg { width: 92px; height: 92px; }
+
+    .room-content { padding: 23px; }
+    .room-content h2 { margin: 0 0 10px; font-size: 21px; font-weight: 800; }
+    .room-content p { color: #6c8172; line-height: 1.6; min-height: 50px; margin: 0 0 18px; }
+    .room-details { display: flex; justify-content: space-between; gap: 10px; padding: 12px 0; border-top: 1px solid #e5eee8; font-size: 14px; }
+    .room-details span:first-child { color: #748579; }
+    .room-details strong { color: #2f6c45; }
+    .room-price { margin-top: 15px; font-size: 25px; font-weight: 800; color: #34764c; }
+    .room-price small { font-size: 13px; font-weight: 500; color: #7b8e81; }
+    .demo-note { margin-top: 22px; color: #728779; font-size: 13px; }
+    .back-link { display: inline-flex; margin-top: 25px; padding: 12px 18px; border-radius: 10px; background: #34764c; color: #fff; text-decoration: none; font-weight: 700; }
+    .back-link:hover { background: #285e3c; color: #fff; }
+
+    @@media (max-width: 850px) {
+        .rooms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @@media (max-width: 560px) {
+        .rooms-page { padding: 20px 12px 35px; }
+        .rooms-hero { padding: 24px 20px; }
+        .rooms-grid { grid-template-columns: 1fr; }
+    }
+</style>
+
+<div class="rooms-page">
+    <section class="rooms-hero">
+        <h1>Find Your Comfort Zone</h1>
+        <p>Explore the available room-style options and choose the type of stay that suits your comfort and budget.</p>
+    </section>
+
+    <div class="rooms-grid">
+        <article class="room-option">
+            <div class="room-art">
+                <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                    <rect x="13" y="24" width="74" height="55" rx="6" stroke="currentColor" stroke-width="4"/>
+                    <path d="M13 49H87M50 24V79M22 34H41V43H22ZM59 34H78V43H59Z" stroke="currentColor" stroke-width="3"/>
+                    <path d="M21 79V88M79 79V88" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="room-content">
+                <h2>Four-Sharing Room</h2>
+                <p>A budget-friendly option designed for students who enjoy a shared living space.</p>
+                <div class="room-details"><span>Room capacity</span><strong>4 students</strong></div>
+                <div class="room-details"><span>Room style</span><strong>Shared</strong></div>
+                <div class="room-price">₹4,000 <small>/ month</small></div>
+            </div>
+        </article>
+
+        <article class="room-option">
+            <div class="room-art">
+                <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                    <rect x="13" y="24" width="74" height="55" rx="6" stroke="currentColor" stroke-width="4"/>
+                    <path d="M13 49H87M32 24V79M68 24V79M20 34H29V43H20ZM39 34H61V43H39ZM71 34H80V43H71Z" stroke="currentColor" stroke-width="3"/>
+                    <path d="M21 79V88M79 79V88" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="room-content">
+                <h2>Two-Sharing Room</h2>
+                <p>A balanced choice with more personal space while sharing with one roommate.</p>
+                <div class="room-details"><span>Room capacity</span><strong>2 students</strong></div>
+                <div class="room-details"><span>Room style</span><strong>Semi-private</strong></div>
+                <div class="room-price">₹6,000 <small>/ month</small></div>
+            </div>
+        </article>
+
+        <article class="room-option">
+            <div class="room-art">
+                <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                    <rect x="18" y="22" width="64" height="58" rx="6" stroke="currentColor" stroke-width="4"/>
+                    <rect x="29" y="33" width="42" height="14" rx="3" stroke="currentColor" stroke-width="3"/>
+                    <path d="M29 58H71M29 66H57M25 80V88M75 80V88" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="room-content">
+                <h2>Single Room</h2>
+                <p>A private room option for students who prefer extra privacy and quiet study time.</p>
+                <div class="room-details"><span>Room capacity</span><strong>1 student</strong></div>
+                <div class="room-details"><span>Room style</span><strong>Private</strong></div>
+                <div class="room-price">₹9,000 <small>/ month</small></div>
+            </div>
+        </article>
+    </div>
+
+    <p class="demo-note">Note: Room types and prices shown here are sample project information, not confirmed hostel rates.</p>
+    <a asp-controller="Students" asp-action="Dashboard" class="back-link">← Back to Dashboard</a>
+</div>
